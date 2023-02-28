@@ -6,21 +6,21 @@ function Cryptr(secret) {
     throw new Error("Cryptr: secret must be a non-0-length string");
   }
 
-  const simpleCrypto = new SimpleCrypto(secretKey)
+  const simpleCrypto = new SimpleCrypto(secret);
 
 
   this.encrypt = function encrypt(value) {
     if (value == null) {
       throw new Error("value must not be null or undefined");
     }
-    return simpleCrypto.encrypt(value)
+    return simpleCrypto.encrypt(value);
   };
 
   this.decrypt = function decrypt(value) {
     if (value == null) {
       throw new Error("value must not be null or undefined");
     }
-    return simpleCrypto.decrypt(value)
+    return simpleCrypto.decrypt(value);
   };
 }
 
