@@ -1,4 +1,4 @@
-const Cryptr = require('cryptr');
+const Cryptr = require('./silla-cryptr');
 const { emit, on, off, removeEventListener, removeListener } = require('./symbol');
 const reservedEvents = require('./reserved-events');
 
