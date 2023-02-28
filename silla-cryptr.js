@@ -46,10 +46,15 @@ function Cryptr(secret, options) {
     cipher.start({ iv, tagLength });
     cipher.update(forge.util.createBuffer(String(value), "utf8"));
     cipher.finish();
-    const encrypted = cipher.output;
-    const tag = cipher.mode.tag;
-
-    return Buffer.concat([salt, iv, tag, encrypted]).toString();
+    const encrypted = cipher.output.toHex();
+    const tag = cipher.mode.tag.toHex();
+    const result = Buffer.concat([
+      Buffer.from(salt),
+      Buffer.from(iv),
+      Buffer.from(tag, "hex"),
+      Buffer.from(encrypted, "hex")
+    ]).toString('hex');
+    return result;
   };
 
   this.decrypt = function decrypt(value) {
@@ -57,7 +62,7 @@ function Cryptr(secret, options) {
       throw new Error("value must not be null or undefined");
     }
 
-    const stringValue = Buffer.from(String(value));
+    const stringValue = Buffer.from(String(value), "hex");
 
     const salt = stringValue.slice(0, saltLength);
     const iv = stringValue.slice(saltLength, tagPosition);
