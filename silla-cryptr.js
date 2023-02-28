@@ -44,7 +44,7 @@ function Cryptr(secret, options) {
 
     const cipher = forge.cipher.createCipher(algorithm, key);
     cipher.start({ iv, tagLength });
-    cipher.update(forge.until.createBuffer(String(value), "utf8"));
+    cipher.update(forge.util.createBuffer(String(value), "utf8"));
     cipher.finish();
     const encrypted = cipher.output;
     const tag = cipher.mode.tag;
